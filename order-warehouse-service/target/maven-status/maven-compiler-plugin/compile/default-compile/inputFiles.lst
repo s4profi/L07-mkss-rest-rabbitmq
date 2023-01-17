@@ -1,0 +1,4 @@
+/home/trunghoa/Schreibtisch/MKSS/workspace/L07-mkss-rest-rabbitmq/order-warehouse-service/src/main/java/com/hsbremen/student/mkss/OrderProcessor/config/RabbitMqConfig.java
+/home/trunghoa/Schreibtisch/MKSS/workspace/L07-mkss-rest-rabbitmq/order-warehouse-service/src/main/java/com/hsbremen/student/mkss/OrderProcessor/eventsproducer/EventsConsumer.java
+/home/trunghoa/Schreibtisch/MKSS/workspace/L07-mkss-rest-rabbitmq/order-warehouse-service/src/main/java/com/hsbremen/student/mkss/OrderProcessor/OrderWarehouseApplication.java
+/home/trunghoa/Schreibtisch/MKSS/workspace/L07-mkss-rest-rabbitmq/order-warehouse-service/src/main/java/com/hsbremen/student/mkss/OrderProcessor/eventsproducer/EventsProducer.java
