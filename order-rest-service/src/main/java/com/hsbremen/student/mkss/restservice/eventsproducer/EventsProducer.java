@@ -14,7 +14,7 @@ public class EventsProducer implements CrudEventProducer<Order> {
 
     private AmqpTemplate amqpTemplate;
 
-    @Value("${my.rabbitmq.an.exchange}")
+    @Value("${my.rabbitmq.direct.exchange}")
     String anExchangeName;
 
     @Value("${my.rabbitmq.a.routing.key}")

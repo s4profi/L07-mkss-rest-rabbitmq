@@ -1,15 +1,10 @@
 package com.hsbremen.student.mkss.restservice.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY, property = "type") @JsonSubTypes({
-        @JsonSubTypes.Type(value = Product.class, name = "Product"),
-})
+@JsonDeserialize(as=Product.class)
 public abstract class LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

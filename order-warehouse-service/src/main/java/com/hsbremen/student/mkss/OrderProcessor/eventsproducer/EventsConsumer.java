@@ -2,6 +2,8 @@ package com.hsbremen.student.mkss.OrderProcessor.eventsproducer;
 
 import com.hsbremen.student.mkss.OrderProcessor.eventsproducer.EventsProducer;
 import com.hsbremen.student.mkss.restservice.model.Order;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,30 +18,17 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 @Service
 public class EventsConsumer {
 
-    private AmqpTemplate amqpTemplate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventsConsumer.class);
 
     private EventsProducer eventsProducer;
 
-    public EventsConsumer(AmqpTemplate amqpTemplate, EventsProducer eventsProducer) {
-        this.amqpTemplate = amqpTemplate;
+    public EventsConsumer(EventsProducer eventsProducer) {
         this.eventsProducer = eventsProducer;
     }
 
-    private EventWithPayload<Order> buildEvent(Event.EventType type, Order payload) {
-        EventWithPayload<Order> event = EventWithPayload.<Order> builder()
-                .type(type)
-                .payload(payload)
-                .build();
-        return event;
-    }
-
-    @RabbitListener(queues="${my.rabbitmq.a.rest.queue}")
+    @RabbitListener(queues = {"${my.rabbitmq.a.queue}"})
     public void receiveMessage(EventWithPayload<Order> event) {
-        System.out.print("Hallo");
-        System.out.println(event.getPayload().getCustomerName());
-        System.out.println(event.getPayload().getStatus());
-        System.out.println(event.getPayload().items);
-        System.out.println("wtf");
-        //eventsProducer.emitCreateEvent("Antwort vom Listener");
+        LOGGER.info(String.format("Received message -> %s", event.toString()));
+        eventsProducer.processOrder(event.getPayload());
     }
 }
