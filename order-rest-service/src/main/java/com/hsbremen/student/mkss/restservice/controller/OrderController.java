@@ -2,7 +2,7 @@ package com.hsbremen.student.mkss.restservice.controller;
 
 import java.util.List;
 
-import com.hsbremen.student.mkss.restservice.eventsproducer.EventsProducer;
+import com.hsbremen.student.mkss.restservice.eventshandler.EventsProducer;
 import com.hsbremen.student.mkss.restservice.model.Order;
 import com.hsbremen.student.mkss.restservice.service.OrderService;
 import com.hsbremen.student.mkss.restservice.util.Status;

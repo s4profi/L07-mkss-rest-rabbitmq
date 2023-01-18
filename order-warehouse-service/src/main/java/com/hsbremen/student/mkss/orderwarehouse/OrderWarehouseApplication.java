@@ -1,4 +1,4 @@
-package com.hsbremen.student.mkss.OrderProcessor;
+package com.hsbremen.student.mkss.orderwarehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

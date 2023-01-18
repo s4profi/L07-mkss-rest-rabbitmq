@@ -1,5 +1,8 @@
-package com.hsbremen.student.mkss.OrderProcessor.config;
+package com.hsbremen.student.mkss.orderwarehouse.config;
 
+import com.hsbremen.student.mkss.orderwarehouse.eventshandler.EventsConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,17 +16,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventsConsumer.class);
+
     @Value("${my.rabbitmq.direct.exchange}")
     String directExchange;
 
-    @Value("${my.rabbitmq.a.queue}")
+    @Value("${my.rabbitmq.newOrder.queue}")
     String newOrderQueue;
 
     @Value("${my.rabbitmq.reply.queue}")
     String replyQueue;
 
-    @Value("${my.rabbitmq.a.routing.key}")
-    String aRoutingKeyName;
+    @Value("${my.rabbitmq.newOrder.routing.key}")
+    String newOrderRoutingKey;
 
     @Value("${my.rabbitmq.reply.routing.key}")
     String replyRoutingKey;
@@ -43,15 +48,15 @@ public class RabbitMqConfig {
 
 
     @Bean
-    Binding newOrderBinding(@Qualifier("newOrderQueue") Queue queue, @Qualifier("directExchange") DirectExchange directExchange) {
-        System.out.println("binded: " + directExchange + newOrderQueue + aRoutingKeyName);
-        return BindingBuilder.bind(queue).to(directExchange).with(aRoutingKeyName);
+    Binding newOrderBinding(@Qualifier("newOrderQueue") Queue queue, @Qualifier("directExchange") DirectExchange exchange) {
+        LOGGER.info(String.format("binded: " + directExchange + " " + newOrderQueue + " " + newOrderRoutingKey));
+        return BindingBuilder.bind(queue).to(exchange).with(newOrderRoutingKey);
     }
 
     @Bean
-    Binding WarehouseReplyBinding(@Qualifier("WarehouseReplyQueue") Queue queue, @Qualifier("directExchange") DirectExchange directExchange) {
-        System.out.println("binded: " + directExchange + replyQueue + replyRoutingKey);
-        return BindingBuilder.bind(queue).to(directExchange).with(replyRoutingKey);
+    Binding WarehouseReplyBinding(@Qualifier("WarehouseReplyQueue") Queue queue, @Qualifier("directExchange") DirectExchange exchange) {
+        LOGGER.info(String.format("binded: " + directExchange + " " + replyQueue + " " + replyRoutingKey));
+        return BindingBuilder.bind(queue).to(exchange).with(replyRoutingKey);
     }
 
     @Bean

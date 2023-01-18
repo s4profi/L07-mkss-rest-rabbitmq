@@ -1,4 +1,4 @@
-package com.hsbremen.student.mkss.OrderProcessor.eventsproducer;
+package com.hsbremen.student.mkss.orderwarehouse.eventshandler;
 
 import com.hsbremen.student.mkss.restservice.model.Order;
 import com.hsbremen.student.mkss.restservice.util.Status;
@@ -41,41 +41,35 @@ public class EventsProducer implements CrudEventProducer<Order> {
     }
 
     public void processOrder(Order payload) {
-        System.out.println(payload);
+        //System.out.println(payload);
         Random random = new Random();
         randomNumber = random.nextInt(2);
         if (randomNumber == 0) {
             payload.setStatus(Status.REJECTED);
-            emitDeleteEvent(payload);
+            emitUpdateEvent(payload);
         } else {
             payload.setStatus(Status.ACCEPTED);
             emitUpdateEvent(payload);
         }
-        //Status[] answer = {Status.ACCEPTED, Status.REJECTED};
-        //String[] answer = {"Status.ACCEPTED", "Status.REJECTED"};
-        //Status updatedStatus = answer[(int) Math.round( Math.random())];
-        //payload.setStatus(updatedStatus);
-       // System.out.println("Sent event = " + event  + " using exchange " + directExchange + " with routing key " + replyRoutingKey);
     }
 
     @Override
     public void emitUpdateEvent(Order payload) {
         EventWithPayload<Order> event = buildEvent(Event.EventType.CHANGED, payload);
         amqpTemplate.convertAndSend(directExchange, replyRoutingKey, event);
-        LOGGER.info(String.format("Send Status -> %s", event.toString()));
-
+        LOGGER.info(String.format("Send Update with -> Type: %s, Order Id: %s, Date: %s, Routing Key: %s",
+                event.getType(), event.getPayload().getId(), event.getDate().toString(), replyRoutingKey));
     }
 
     @Override
     public void emitDeleteEvent(Order payload) {
         EventWithPayload<Order> event = buildEvent(Event.EventType.DELETED, payload);
         amqpTemplate.convertAndSend(directExchange, replyRoutingKey, event);
-        LOGGER.info(String.format("Send Status -> %s", event.toString()));
     }
-
 
     @Override
     public void emitCreateEvent(Order payload) {
-
+        EventWithPayload<Order> event = buildEvent(Event.EventType.CREATED, payload);
+        amqpTemplate.convertAndSend(directExchange, replyRoutingKey, event);
     }
 }
