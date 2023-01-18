@@ -95,7 +95,7 @@ public class OrderController {
         }
         order.setStatus(Status.COMMITTED);
         this.orderService.saveOrder(order);
-        eventsProducer.emitCreateEvent("HALLO");
+        eventsProducer.emitCreateEvent(order);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 

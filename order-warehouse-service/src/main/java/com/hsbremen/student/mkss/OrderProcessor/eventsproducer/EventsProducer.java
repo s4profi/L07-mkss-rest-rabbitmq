@@ -25,24 +25,24 @@ public class EventsProducer {
     }
 
 
-    private EventWithPayload<String> buildEvent(Event.EventType type, String payload) {
-        EventWithPayload<String> event = EventWithPayload.<String> builder()
+    private EventWithPayload<Order> buildEvent(Event.EventType type, Order payload) {
+        EventWithPayload<Order> event = EventWithPayload.<Order> builder()
                 .type(type)
                 .payload(payload)
                 .build();
         return event;
     }
 
-    public void emitCreateEvent(String payload) {
+    public void emitCreateEvent(EventWithPayload<Order> payload) {
         //Status[] answer = {Status.ACCEPTED, Status.REJECTED};
-        Order order = new Order();
-        System.out.println(order);
-        String[] answer = {"Status.ACCEPTED", "Status.REJECTED"};
+        //Order order = new Order();
+        System.out.println(payload);
+        //String[] answer = {"Status.ACCEPTED", "Status.REJECTED"};
         //Status updatedStatus = answer[(int) Math.round( Math.random())];
         //payload.setStatus(updatedStatus);
-        EventWithPayload<String> event = buildEvent(Event.EventType.CREATED, payload);
-        amqpTemplate.convertAndSend(anExchangeName, aRoutingKeyName, event);
-        System.out.println("Sent event = " + event  + " using exchange " + anExchangeName + " with routing key " + aRoutingKeyName);
+        //EventWithPayload<String> event = buildEvent(Event.EventType.CREATED, payload);
+        //amqpTemplate.convertAndSend(anExchangeName, aRoutingKeyName, event);
+        //System.out.println("Sent event = " + event  + " using exchange " + anExchangeName + " with routing key " + aRoutingKeyName);
     }
 
 

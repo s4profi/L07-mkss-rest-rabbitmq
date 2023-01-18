@@ -1,6 +1,7 @@
 package com.hsbremen.student.mkss.OrderProcessor.eventsproducer;
 
 import com.hsbremen.student.mkss.OrderProcessor.eventsproducer.EventsProducer;
+import com.hsbremen.student.mkss.restservice.model.Order;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,9 +25,8 @@ public class EventsConsumer {
         this.eventsProducer = eventsProducer;
     }
 
-
-    private EventWithPayload<String> buildEvent(Event.EventType type, String payload) {
-        EventWithPayload<String> event = EventWithPayload.<String> builder()
+    private EventWithPayload<Order> buildEvent(Event.EventType type, Order payload) {
+        EventWithPayload<Order> event = EventWithPayload.<Order> builder()
                 .type(type)
                 .payload(payload)
                 .build();
@@ -34,9 +34,12 @@ public class EventsConsumer {
     }
 
     @RabbitListener(queues="${my.rabbitmq.a.rest.queue}")
-    public void receiveMessage(EventWithPayload<String> event) {
+    public void receiveMessage(EventWithPayload<Order> event) {
         System.out.print("Hallo");
-        System.out.println(event);
-        eventsProducer.emitCreateEvent("Antwort vom Listener");
+        System.out.println(event.getPayload().getCustomerName());
+        System.out.println(event.getPayload().getStatus());
+        System.out.println(event.getPayload().items);
+        System.out.println("wtf");
+        //eventsProducer.emitCreateEvent("Antwort vom Listener");
     }
 }

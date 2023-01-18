@@ -1,8 +1,10 @@
 package com.hsbremen.student.mkss.restservice.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.*;
 
 @Entity
+@JsonTypeName("Product")
 public class Product extends LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -1,8 +1,11 @@
 package com.hsbremen.student.mkss.restservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.*;
 
 @Entity
+@JsonTypeName("Service")
 public class Service extends LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
