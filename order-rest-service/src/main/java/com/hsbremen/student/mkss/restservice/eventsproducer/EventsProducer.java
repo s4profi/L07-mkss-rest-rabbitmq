@@ -15,7 +15,7 @@ public class EventsProducer implements CrudEventProducer<Order> {
     private AmqpTemplate amqpTemplate;
 
     @Value("${my.rabbitmq.direct.exchange}")
-    String anExchangeName;
+    String directExchange;
 
     @Value("${my.rabbitmq.a.routing.key}")
     String aRoutingKeyName;
@@ -37,8 +37,8 @@ public class EventsProducer implements CrudEventProducer<Order> {
     @Override
     public void emitCreateEvent(Order payload) {
         EventWithPayload<Order> event = buildEvent(Event.EventType.CREATED, payload);
-        amqpTemplate.convertAndSend(anExchangeName, aRoutingKeyName, event);
-        System.out.println("Sent event = " + event + " using exchange " + anExchangeName + " with routing key " + aRoutingKeyName);
+        amqpTemplate.convertAndSend(directExchange, aRoutingKeyName, event);
+        System.out.println("Sent event = " + event + " using exchange " + directExchange + " with routing key " + aRoutingKeyName);
     }
 
     @Override
