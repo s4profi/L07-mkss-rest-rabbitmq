@@ -24,12 +24,12 @@ public class EventsConsumer {
         this.amqpTemplate = amqpTemplate;
     }
 
-    @RabbitListener(queues="${my.rabbitmq.a.warehouse.queue}")
-    public void receiveMessage(EventWithPayload<String> event) {
+    @RabbitListener(queues = {"${my.rabbitmq.reply.queue}"} )
+    public void receiveMessage(EventWithPayload<Order> event) {
         System.out.println(event);
         //System.out.println("was " + event.getStatus());
-        //if(event.getStatus() == Status.ACCEPTED){
-        if(event.getPayload().equals("Antwort vom Listener")){
+        if(event.getPayload().getStatus() == Status.ACCEPTED){
+        //if(event.getPayload().equals("Antwort vom Listener")){
             //orderService.saveOrder(event.getpayload());
             System.out.println("Order was updated");
         }

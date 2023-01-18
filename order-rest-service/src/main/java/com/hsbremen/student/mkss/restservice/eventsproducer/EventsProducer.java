@@ -10,11 +10,11 @@ import com.hsbremen.student.mkss.restservice.model.Order;
 
 
 @Component
-public class EventsProducer implements CrudEventProducer<String> {
+public class EventsProducer implements CrudEventProducer<Order> {
 
     private AmqpTemplate amqpTemplate;
 
-    @Value("${my.rabbitmq.an.exchange}")
+    @Value("${my.rabbitmq.direct.exchange}")
     String anExchangeName;
 
     @Value("${my.rabbitmq.a.routing.key}")
@@ -26,8 +26,8 @@ public class EventsProducer implements CrudEventProducer<String> {
     }
 
 
-    private EventWithPayload<String> buildEvent(Event.EventType type, String payload) {
-        EventWithPayload<String> event = EventWithPayload.<String> builder()
+    private EventWithPayload<Order> buildEvent(Event.EventType type, Order payload) {
+        EventWithPayload<Order> event = EventWithPayload.<Order> builder()
                 .type(type)
                 .payload(payload)
                 .build();
@@ -35,19 +35,19 @@ public class EventsProducer implements CrudEventProducer<String> {
     }
 
     @Override
-    public void emitCreateEvent(String payload) {
-        EventWithPayload<String> event = buildEvent(Event.EventType.CREATED, payload);
+    public void emitCreateEvent(Order payload) {
+        EventWithPayload<Order> event = buildEvent(Event.EventType.CREATED, payload);
         amqpTemplate.convertAndSend(anExchangeName, aRoutingKeyName, event);
         System.out.println("Sent event = " + event + " using exchange " + anExchangeName + " with routing key " + aRoutingKeyName);
     }
 
     @Override
-    public void emitUpdateEvent(String payload) {
+    public void emitUpdateEvent(Order payload) {
         // TODO: Implementation for update events (e.g. changed Order)
     }
 
     @Override
-    public void emitDeleteEvent(String payload) {
+    public void emitDeleteEvent(Order payload) {
         // TODO: Implementation for delete events (e.g. deleted Order)
     }
 }

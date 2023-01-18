@@ -13,62 +13,51 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
-    @Value("${my.rabbitmq.an.exchange}")
-    String anExchangeName;
+    @Value("${my.rabbitmq.direct.exchange}")
+    String directExchange;
 
     @Value("${my.rabbitmq.a.queue}")
-    String aQueueName;
+    String newOrderQueue;
+
+    @Value("${my.rabbitmq.reply.queue}")
+    String replyQueue;
 
     @Value("${my.rabbitmq.a.routing.key}")
     String aRoutingKeyName;
 
-    // BEGIN: Template code for direct exchanges and fanout exchanges
+    @Value("${my.rabbitmq.reply.routing.key}")
+    String replyRoutingKey;
 
-    //
-    // Template code: Configuration of a direct exchange (uses routing key)
-    //
 
     // Exchanges are required for emitting and receiving event messages
-    @Bean("someExchange")
-    DirectExchange someExchange() {
-        return new DirectExchange(anExchangeName);
+    @Bean("directExchange")
+    DirectExchange directExchange() {
+        return new DirectExchange(directExchange);
     }
 
     // Queues are required for receiving event messages
-    @Bean("someQueue")
-    Queue someQueue() {
-        return new Queue(aQueueName, false);
+    @Bean("newOrderQueue")
+    Queue newOrderQueue() {
+        return new Queue(newOrderQueue, false);
+    }
+
+    @Bean("WarehouseReplyQueue")
+    Queue replyQueue() {
+        return new Queue(replyQueue, false);
     }
 
     // Bindings are required for receiving event messages:
     // connecting of a queue to an exchange
     @Bean
-    Binding someBinding(@Qualifier("someQueue") Queue queue, @Qualifier("someExchange") DirectExchange exchange) {
+    Binding newOrderBinding(@Qualifier("newOrderQueue") Queue queue, @Qualifier("directExchange") DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(aRoutingKeyName);
     }
 
-    //
-    // Template code: Configuration of a fanout exchange (no routing key)
-    //
-
-//    @Bean("anotherExchange")
-    FanoutExchange anotherExchange() {
-        return new FanoutExchange(anExchangeName);
+    @Bean
+    Binding WarehouseReplyBinding(@Qualifier("WarehouseReplyQueue") Queue queue, @Qualifier("directExchange") DirectExchange directExchange) {
+        System.out.println("binded: " + directExchange + replyQueue + replyRoutingKey);
+        return BindingBuilder.bind(queue).to(directExchange).with(replyRoutingKey);
     }
-
-//    @Bean("anotherQueue")
-    Queue anotherQueue() {
-        return new Queue(aQueueName, false);
-    }
-
-//    @Bean
-    Binding anotherBinding(@Qualifier("anotherQueue") Queue queue, @Qualifier("anotherExchange") FanoutExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange);
-    }
-
-    // END: Template code for direct exchanges and fanout exchanges
-
-
 
     @Bean
     public MessageConverter jsonMessageConverter() {

@@ -1,8 +1,10 @@
 package com.hsbremen.student.mkss.restservice.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@JsonDeserialize(as=Product.class)
 public abstract class LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
