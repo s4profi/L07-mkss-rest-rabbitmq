@@ -1,17 +1,20 @@
 package com.hsbremen.student.mkss.restservice.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
+@Schema(description = "Product of our shop.")
 @Entity
-@JsonTypeName("Product")
 public class Product extends LineItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    @NotBlank
     private int unitPrice;
+    @NotBlank
     private int quantity;
 
     public Long getId() {

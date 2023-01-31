@@ -2,10 +2,13 @@ package com.hsbremen.student.mkss.restservice.model;
 
 
 import com.hsbremen.student.mkss.restservice.util.Status;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+@Schema(description = "Model object for orders.")
 @Entity
 @Table(name = "orders")
 public class Order {

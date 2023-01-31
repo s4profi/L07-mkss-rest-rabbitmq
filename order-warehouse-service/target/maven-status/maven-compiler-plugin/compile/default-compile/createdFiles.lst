@@ -1,4 +1,4 @@
-com/hsbremen/student/mkss/OrderProcessor/eventsproducer/EventsConsumer.class
-com/hsbremen/student/mkss/OrderProcessor/eventsproducer/EventsProducer.class
-com/hsbremen/student/mkss/OrderProcessor/OrderWarehouseApplication.class
-com/hsbremen/student/mkss/OrderProcessor/config/RabbitMqConfig.class
+com/hsbremen/student/mkss/orderwarehouse/eventshandler/EventsProducer.class
+com/hsbremen/student/mkss/orderwarehouse/eventshandler/EventsConsumer.class
+com/hsbremen/student/mkss/orderwarehouse/config/RabbitMqConfig.class
+com/hsbremen/student/mkss/orderwarehouse/OrderWarehouseApplication.class

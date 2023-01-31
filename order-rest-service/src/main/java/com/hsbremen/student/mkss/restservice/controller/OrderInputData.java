@@ -1,25 +1,25 @@
 package com.hsbremen.student.mkss.restservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
+@Schema(name = "Order Input Data", description = "DTO for either order to be created or line item to be added. " +
+        "To add order, customerName is required. To add LineItem name, price and quantity is required.")
 public class OrderInputData {
 
+    @NotBlank
     @JsonProperty
     private String customerName;
+    @NotBlank
     @JsonProperty
     private String name;
+    @NotBlank
     @JsonProperty
-
     private int price;
+    @NotBlank
     @JsonProperty
-
     private int quantity;
-    @JsonProperty
-
-    private int persons;
-    @JsonProperty
-
-    private int hours;
 
     /**
      * Builder Pattern
@@ -44,21 +44,10 @@ public class OrderInputData {
         return this;
     }
 
-    public OrderInputData persons(int persons) {
-        this.persons = persons;
-        return this;
-    }
-
-    public OrderInputData hours(int hours) {
-        this.hours = hours;
-        return this;
-    }
 
     public String getName() { return name; }
     public int getPrice() { return price; }
     public int getQuantity() { return quantity; }
-    public int getPersons() { return persons; }
-    public int getHours() { return hours; }
 
     public String getCustomerName() {
         return customerName;
