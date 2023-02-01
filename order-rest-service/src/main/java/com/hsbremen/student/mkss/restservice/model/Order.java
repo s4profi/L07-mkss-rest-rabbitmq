@@ -20,12 +20,6 @@ public class Order {
     public List<LineItem> items = new ArrayList<>();
     public Status status = Status.EMPTY;
 
-    //  private int sum;
-    //  public int getSum() { return sum; }
-    //  public void setSum(int s) { sum = s; }
-
-    //  private String orderId;
-
     private String customerName;
 
     public int getId() {
@@ -43,18 +37,9 @@ public class Order {
         this.customerName = customerName;
     }
 
-
-    //  public String getOrderId() { return orderId; }
-    //  public void setOrderId() { orderId = String.valueOf(this.hashCode()); }
-    //  public void setOrderId(String orderId) { this.orderId = orderId;  }
-
     public void addProduct(Product product) {
         this.items.add(product);
     }
-
-    //  public void addService(Service service) {
-    //    this.items.add(service);
-    //}
 
     public void deleteItem(int itemId) {
         int index = 0;
@@ -64,11 +49,6 @@ public class Order {
         }
         items.remove(index);
     }
-
-    //  @Override
-    //  public String toString() {
-    //      return this.items.toString();
-    //  }
 
     public void setStatus(Status status) {
         this.status = status;

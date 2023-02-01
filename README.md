@@ -8,7 +8,6 @@ Spring Boot REST service for a simple online shop
 A list of technologies used within the project: 
 * Docker
 * RabbitMQ
-* Event Library: events, Version 1.0-SNAPSHOT
 ***
 
 ## Run Application

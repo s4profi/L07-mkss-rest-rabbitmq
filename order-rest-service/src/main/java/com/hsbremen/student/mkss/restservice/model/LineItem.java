@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Line item for orders.")
 @Entity
@@ -14,9 +15,9 @@ public abstract class LineItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-    @NotBlank
+
     private String name;
-    @NotBlank
+
     private int price;
 
     public Long getId() {
@@ -27,6 +28,7 @@ public abstract class LineItem {
         this.id = id;
     }
 
+    @NotNull
     public String getName() {
         return this.name;
     }
@@ -37,6 +39,7 @@ public abstract class LineItem {
 
     public abstract void setPrice(int price);
 
+    @NotNull
     public abstract int getPrice();
 
     public abstract void print();

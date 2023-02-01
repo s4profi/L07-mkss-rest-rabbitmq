@@ -42,30 +42,31 @@
             <artifactId> lombok</artifactId>
             <version> 1.18.24</version>
         </dependency>
-        <!-- Events Library -->
-        <dependency>
-            <groupId> de.hs-bremen.mkss</groupId>
-            <artifactId> events</artifactId>
-            <version> 1.0-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>order-rest-service</artifactId>
+            <artifactId>events</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.example</groupId>-->
+<!--            <artifactId>order-rest-service</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>order-rest-service</artifactId>
             <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <groupId> org.springframework.boot</groupId>
-                <artifactId> spring-boot-maven-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

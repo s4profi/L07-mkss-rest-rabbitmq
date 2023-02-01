@@ -11,6 +11,7 @@
     <modules>
         <module>order-rest-service</module>
         <module>order-warehouse-service</module>
+        <module>events</module>
     </modules>
 
     <properties>

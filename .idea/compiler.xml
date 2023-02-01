@@ -8,11 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="order-warehouse-service" />
+        <module name="events" />
         <module name="order-rest-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="events" target="12" />
       <module name="OrderWarehouse" target="17" />
     </bytecodeTargetLevel>
   </component>

@@ -14,7 +14,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 public class EventsConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventsConsumer.class);
-
     private OrderService orderService;
     public EventsConsumer(OrderService orderService) {
         this.orderService = orderService;

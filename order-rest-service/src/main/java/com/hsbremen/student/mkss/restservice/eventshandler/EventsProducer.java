@@ -24,7 +24,6 @@ public class EventsProducer implements CrudEventProducer<Order> {
     @Value("${my.rabbitmq.newOrder.routing.key}")
     String newOrderRoutingKey;
 
-
     public EventsProducer(AmqpTemplate amqpTemplate) {
 
         this.amqpTemplate = amqpTemplate;
